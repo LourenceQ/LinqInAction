@@ -1,16 +1,21 @@
-﻿using System.Xml.Linq;
-
-namespace LinqInAction.Main;
+﻿namespace LinqInAction.Main;
 
 public class Program
 {
     public static void Main(string[] args)
     {
-        // var contacts = from customter in db.Customers
-        //     where customter.Name.StartsWith("A") 
-        //     && customter.Orders.Count > 0
-        //     orderby customter.Name
-        //     select new{customer.Name, customer.Phone};
+        var db = new NorthwindContext();
+
+         var contacts = from customer in db.Customers
+             where customer.CompanyName.StartsWith("A") 
+             && customer.Orders.Count > 0
+             orderby customer.CompanyName
+                select new{ customer.CompanyName, customer.Phone};
+
+        foreach (var item in contacts)
+        {
+            Console.WriteLine(item);
+        }
 
         // var xml = 
         // new XElement("contacts",
