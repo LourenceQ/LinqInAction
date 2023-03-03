@@ -53,5 +53,23 @@ public class Program
             foreach (string w in item.Words)
                 Console.WriteLine(" " + w);
         }
+
+        // Listing 1.9 Hello LINQ in C# improved with grouping and sorting 
+
+        var g1 = from word in words
+                 orderby word ascending
+                 group word by word.Length into lengthGroups
+                 orderby lengthGroups.Key descending
+                 select new { Length = lengthGroups.Key, Words = lengthGroups };
+
+        foreach(var group in g1)
+        {
+            Console.WriteLine("Words of length " + group.Length);
+            foreach (string word in group.Words)
+                Console.WriteLine(" " + word);
+            {
+
+            }
+        }
     }
 }
