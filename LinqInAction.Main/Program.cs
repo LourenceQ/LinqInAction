@@ -1,23 +1,18 @@
-﻿using System.Xml.Linq;
-
-namespace LinqInAction.Main;
+﻿namespace LinqInAction.Main;
 
 public class Program
 {
     public static void Main(string[] args)
     {
-        var db = new NorthwindContext();
+        ReturnCustomers();
+        var numbers = new[] { 1, 2, 3, 4, 5, 6, 222, 333 };
 
-        var contacts = from customer in db.Customers
-                       where customer.CompanyName.StartsWith("A")
-                       && customer.Orders.Count > 0
-                       orderby customer.CompanyName
-                       select new { customer.CompanyName, customer.Phone };
+        Console.WriteLine($"Is any > 100 ?: {IsAny(numbers, IsAnyLargerThan100)}");
 
-        foreach (var item in contacts)
-        {
-            Console.WriteLine(item);
-        }
+        Console.WriteLine($"Is any even ?: {IsAny(numbers, IsAnyEven)}");
+
+
+        #region
 
         /*var xml =
         new XElement("contacts",
@@ -30,7 +25,7 @@ public class Program
 
         // Hello LINQ to objects
 
-        string[] words = { "hello", "wonderful", "linq", "beautiful", "world" };
+        /*string[] words = { "hello", "wonderful", "linq", "beautiful", "world" };
 
         var shortWords = from word in words
                          where word.Length <= 5
@@ -62,7 +57,7 @@ public class Program
                  orderby lengthGroups.Key descending
                  select new { Length = lengthGroups.Key, Words = lengthGroups };
 
-        foreach(var group in g1)
+        foreach (var group in g1)
         {
             Console.WriteLine("Words of length " + group.Length);
             foreach (string word in group.Words)
@@ -70,6 +65,41 @@ public class Program
             {
 
             }
+        }*/
+        #endregion
+    }
+
+    #region UNDERSTANDING LAMBDA EXPRESSIONS
+    // Any()
+    public static bool IsAnyLargerThan100(int number) { return number > 100; }
+
+    public static bool IsAnyEven(int number) { return number % 2 == 0; }
+
+    public static bool IsAny(int[] numbers, Func<int, bool> predicate)
+    {
+        foreach (var number in numbers)
+            if (predicate(number)) return true;
+
+        return false;
+    }
+    #endregion
+
+
+    #region QUERING DATABASE
+    private static void ReturnCustomers()
+    {
+        var db = new NorthwindContext();
+
+        var contacts = from customer in db.Customers
+                       where customer.CompanyName.StartsWith("A")
+                       && customer.Orders.Count > 0
+                       orderby customer.CompanyName
+                       select new { customer.CompanyName, customer.Phone };
+
+        foreach (var item in contacts)
+        {
+            Console.WriteLine(item);
         }
     }
+    #endregion
 }
