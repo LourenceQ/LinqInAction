@@ -12,20 +12,21 @@ public class Program
         Console.WriteLine($"Is any even ?: {IsAny(numbers, IsAnyEven)}");
 
 
-        #region
+        #region XML
 
-        /*var xml =
+        var xml =
         new XElement("contacts",
         from contact in contacts
         select new XElement("contact",
             new XAttribute("name", contact.CompanyName),
             new XAttribute("phone", contact.Phone)
             )
-        );*/
-
+        );
+        #endregion
+        #region SIMPLE QUERY IN ARRAY
         // Hello LINQ to objects
 
-        /*string[] words = { "hello", "wonderful", "linq", "beautiful", "world" };
+        string[] words = { "hello", "wonderful", "linq", "beautiful", "world" };
 
         var shortWords = from word in words
                          where word.Length <= 5
@@ -65,7 +66,7 @@ public class Program
             {
 
             }
-        }*/
+        }
         #endregion
     }
 
