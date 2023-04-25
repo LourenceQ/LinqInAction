@@ -126,6 +126,31 @@ public class Program
         }
     }
     #endregion
+
+    #region Linq Defered Execution
+    /*
+     *  Deferred execution means that the evaluation of a 
+     *  LINQ expression is delayed until the value is actually needed.
+     */
+    public static void WordsExample()
+    {
+        List<string> words = new() { "a", "bb", "ccc", "dddd" };
+
+        // this is just a query
+        var shortWords = words.Where(word => word.Length < 3);
+
+        // this is a materialized data
+        // var shortWords = words.Where(word => word.Length < 3).ToList();
+
+        foreach (var word in shortWords)
+            WriteLine(word);
+
+        words.Add("e");
+
+        foreach (var word in shortWords)
+            WriteLine(word);
+    }
+    #endregion
 }
 
 #region Extension Methods
