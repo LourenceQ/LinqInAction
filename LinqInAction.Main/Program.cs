@@ -130,7 +130,11 @@ public class Program
     #region Linq Defered Execution
     /*
      *  Deferred execution means that the evaluation of a 
-     *  LINQ expression is delayed until the value is actually needed.
+     *  LINQ expression is delayed until the value is actually needed.     *  
+     *  It allows us to work on the latest data.     *  
+     *  It improves the performance, as the query is materialized
+     *  only when it's actually needed, so we can avoid
+     *  unecessary execution.
      */
     public static void WordsExample()
     {
