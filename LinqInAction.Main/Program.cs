@@ -130,8 +130,8 @@ public class Program
     #region Linq Defered Execution
     /*
      *  Deferred execution means that the evaluation of a 
-     *  LINQ expression is delayed until the value is actually needed.     *  
-     *  It allows us to work on the latest data.     *  
+     *  LINQ expression is delayed until the value is actually needed.  
+     *  It allows us to work on the latest data.
      *  It improves the performance, as the query is materialized
      *  only when it's actually needed, so we can avoid
      *  unecessary execution.
@@ -153,6 +153,22 @@ public class Program
 
         foreach (var word in shortWords)
             WriteLine(word);
+    }
+    #endregion
+
+    #region Method syntax and query syntax
+    public static void MethodAndQuerySynta()
+    {
+        List<int> nums = new() { 1, 2, 3, 4, 5, 6 };
+
+        var methodSyntax = nums
+            .Where(x => x < 10)
+            .OrderBy(x => x);
+
+        var querySyntax = from n in nums
+                          where n < 10
+                          orderby n
+                          select n;
     }
     #endregion
 }
